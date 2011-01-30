@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package>
+  <metadata>
+    <id>AnglicanGeek.Mvc</id>
+    <version>0.1.0</version>
+    <authors>Andrew Miller &lt;ego@anglicangeek.com&gt;</authors>
+    <owners>Andrew Miller &lt;ego@anglicangeek.com&gt;</owners>
+    <description>A library that has the stuff I use with *every* ASP.NET MVC app I craft.</description>
+    <language>en-US</language>
+    <projectUrl>http://github.com/anglicangeek/AnglicanGeek.Mvc</projectUrl>
+    <licenseUrl>https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/LICENSE.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+  </metadata>
+  <files>
+    <file src="Lib\bin\Release\*.dll" target="lib" />
+    <file src="Lib\bin\Release\*.pdb" target="lib" />
+  </files>
+</package>
