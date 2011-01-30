@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib", "Lib\Lib.csproj", "{1E7042C2-92AB-41E8-88F8-21E21F8FF4DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{4AFAA850-5F12-4EC4-AC06-39E4FC02E61F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E35BAC3-1265-43F7-BD11-98F125399C36}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.markdown = README.markdown
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E7042C2-92AB-41E8-88F8-21E21F8FF4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E7042C2-92AB-41E8-88F8-21E21F8FF4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E7042C2-92AB-41E8-88F8-21E21F8FF4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E7042C2-92AB-41E8-88F8-21E21F8FF4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFAA850-5F12-4EC4-AC06-39E4FC02E61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFAA850-5F12-4EC4-AC06-39E4FC02E61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFAA850-5F12-4EC4-AC06-39E4FC02E61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFAA850-5F12-4EC4-AC06-39E4FC02E61F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
