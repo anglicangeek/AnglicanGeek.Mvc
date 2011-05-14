@@ -7,19 +7,16 @@ namespace AnglicanGeek.Mvc
 {
     public class FilterProvider : IFilterProvider
     {
-        readonly IDependencyResolver dependencyResolver;
         readonly IEnumerable<IScopedFilter> scopedFilters;
 
-        public FilterProvider(IDependencyResolver dependencyResolver)
+        public FilterProvider()
         {
-            this.dependencyResolver = dependencyResolver;
-
             var scopedFilterInterface = typeof(IScopedFilter);
 
             this.scopedFilters = AppDomain.CurrentDomain.GetAssemblies().ToList()
                 .SelectMany(assembly => assembly.GetTypes())
                 .Where(type => type != scopedFilterInterface && scopedFilterInterface.IsAssignableFrom(type))
-                .Select(type => dependencyResolver.GetService(type) as IScopedFilter)
+                .Select(type => DependencyResolver.Current.GetService(type) as IScopedFilter)
                 .Where(filter =>
                     filter is IActionFilter ||
                     filter is IResultFilter ||

@@ -7,31 +7,30 @@ using MvcDependencyResolver = System.Web.Mvc.DependencyResolver;
 using MvcRazorViewEngine = System.Web.Mvc.RazorViewEngine;
 using MvcWebFormViewEngine = System.Web.Mvc.WebFormViewEngine;
 
-[assembly: PreApplicationStartMethod(typeof(AnglicanGeek.Mvc.PreApplicationStartCode), "Start")]
-
 namespace AnglicanGeek.Mvc
 {
-    public static class PreApplicationStartCode
+    public static class Configurator
     {
-        static bool startWasCalled;
-        
-        public static void Start()
+        public static void FixUpViewEngines()
         {
-            if (startWasCalled) 
+            var viewEngines = ViewEngines.Engines;
+            if (viewEngines.Count != 2)
                 return;
 
-            startWasCalled = true;
+            var razorViewEngine = viewEngines.Where(x => x.GetType() == typeof(MvcRazorViewEngine)).SingleOrDefault();
+            var webFormViewEngine = viewEngines.Where(x => x.GetType() == typeof(MvcWebFormViewEngine)).SingleOrDefault();
 
-            RegisterDependencies();
-            RegisterRoutes();
-            FixUpViewEngines();
+            if (razorViewEngine != null && webFormViewEngine != null)
+            {
+                viewEngines.Clear();
+                viewEngines.Add(new WebFormViewEngine());
+                viewEngines.Add(new RazorViewEngine());
+            }
         }
 
-        static void RegisterDependencies()
+        public static void UseSimpleDependencyContainer()
         {
             var dependencyResolver = new SimpleDependencyContainer();
-
-            dependencyResolver.RegisterCreator<IFilterProvider>(() => new FilterProvider(dependencyResolver));
 
             var registrarInterface = typeof(IDependencyRegistrar);
 
@@ -49,7 +48,7 @@ namespace AnglicanGeek.Mvc
             }
         }
 
-        static void RegisterRoutes()
+        public static void UseRouteRegistrars()
         {
             var registrarInterface = typeof(IRouteRegistrar);
 
@@ -62,20 +61,14 @@ namespace AnglicanGeek.Mvc
                 registrar.RegisterRoutes(RouteTable.Routes);
         }
 
-        static void FixUpViewEngines()
+        public static void UseScopedFilters()
         {
-            var viewEngines = ViewEngines.Engines;
-            if (viewEngines.Count != 2)
-                return;
-
-            var razorViewEngine = viewEngines.Where(x => x.GetType() == typeof(MvcRazorViewEngine)).SingleOrDefault();
-            var webFormViewEngine = viewEngines.Where(x => x.GetType() == typeof(MvcWebFormViewEngine)).SingleOrDefault();
-            
-            if (razorViewEngine != null && webFormViewEngine != null)
+            if (MvcDependencyResolver.Current != null)
             {
-                viewEngines.Clear();
-                viewEngines.Add(new WebFormViewEngine());
-                viewEngines.Add(new RazorViewEngine());
+                var dependencyResolver = MvcDependencyResolver.Current;
+                
+                if (dependencyResolver is IDependencyRegistry)
+                    ((IDependencyRegistry)dependencyResolver).RegisterCreator<IFilterProvider>(() => new FilterProvider());
             }
         }
     }

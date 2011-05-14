@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E35BAC3-1265-43F7-BD11-98F125399C36}"
 	ProjectSection(SolutionItems) = preProject
 		AnglicanGeek.Mvc.nuspec = AnglicanGeek.Mvc.nuspec
+		PackageFiles\Content\App_Start\AnglicanGeekMvcWebActivator.cs.pp = PackageFiles\Content\App_Start\AnglicanGeekMvcWebActivator.cs.pp
 		LICENSE.txt = LICENSE.txt
 		README.markdown = README.markdown
 	EndProjectSection

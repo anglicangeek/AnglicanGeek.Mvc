@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AnglicanGeek.Mvc</id>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <authors>Andrew Miller &lt;ego@anglicangeek.com&gt;</authors>
     <owners>Andrew Miller &lt;ego@anglicangeek.com&gt;</owners>
     <description>A library that has the stuff I use with *every* ASP.NET MVC app I craft.</description>
@@ -10,9 +10,12 @@
     <projectUrl>http://github.com/anglicangeek/AnglicanGeek.Mvc</projectUrl>
     <licenseUrl>https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+      <dependency id="WebActivator" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="Lib\bin\Release\*.dll" target="lib" />
-    <file src="Lib\bin\Release\*.pdb" target="lib" />
+    <file src="Lib\bin\Release\AnglicanGeek.Mvc.dll" target="lib" />
+    <file src="PackageFiles\Content\App_Start\AnglicanGeekMvcWebActivator.cs.pp" target="Content\App_Start" />
   </files>
 </package>
