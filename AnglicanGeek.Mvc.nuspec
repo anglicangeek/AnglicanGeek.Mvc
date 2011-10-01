@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <package>
   <metadata>
-    <id>AnglicanGeek.Mvc</id>
-    <version>0.2.0</version>
-    <authors>Andrew Miller &lt;ego@anglicangeek.com&gt;</authors>
-    <owners>Andrew Miller &lt;ego@anglicangeek.com&gt;</owners>
-    <description>A library that has the stuff I use with *every* ASP.NET MVC app I craft.</description>
-    <language>en-US</language>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <description>$description%</description>
     <projectUrl>http://github.com/anglicangeek/AnglicanGeek.Mvc</projectUrl>
     <licenseUrl>https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
