@@ -57,6 +57,7 @@
     <Compile Include="WebFormViewEngine.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lib.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

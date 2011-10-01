@@ -9,10 +9,10 @@
     <licenseUrl>https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="WebActivator" version="" />
+      <dependency id="WebActivator" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\PackageFiles\Content\App_Start\AnglicanGeekMvcWebActivator.cs.pp" target="Content\App_Start" />
+    <file src="..\PackageFiles\Content\App_Start\AnglicanGeek.Mvc.Bootstrapper.cs.pp" target="Content\App_Start" />
   </files>
 </package>
