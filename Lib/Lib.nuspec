@@ -4,16 +4,15 @@
     <id>$id$</id>
     <version>$version$</version>
     <authors>$author$</authors>
-    <description>$description%</description>
+    <description>$description$</description>
     <projectUrl>http://github.com/anglicangeek/AnglicanGeek.Mvc</projectUrl>
     <licenseUrl>https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="WebActivator" />
+      <dependency id="WebActivator" version="" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Lib\bin\Release\AnglicanGeek.Mvc.dll" target="lib" />
-    <file src="PackageFiles\Content\App_Start\AnglicanGeekMvcWebActivator.cs.pp" target="Content\App_Start" />
+    <file src="..\PackageFiles\Content\App_Start\AnglicanGeekMvcWebActivator.cs.pp" target="Content\App_Start" />
   </files>
 </package>
