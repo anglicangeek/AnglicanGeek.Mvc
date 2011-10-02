@@ -5,9 +5,9 @@ using System.Web.Mvc;
 
 namespace AnglicanGeek.Mvc
 {
-    public class SimpleDependencyContainer : IDependencyRegistry, IDependencyResolver
+    public class SimpleDependencyContainer : IDependencyRegistry, IDependencyResolver, INamedDependencyResolver
     {
-        readonly Dictionary<Type, IList<Func<object>>> registeredTypeCreators = new Dictionary<Type, IList<Func<object>>>();
+        readonly Dictionary<Tuple<Type, string>, IList<Func<object>>> registeredTypeCreators = new Dictionary<Tuple<Type, string>, IList<Func<object>>>();
         readonly Dictionary<string, Func<object>> registeredConstructorValues = new Dictionary<string, Func<object>>();
 
         object CreateInstance(Type type)
@@ -36,7 +36,9 @@ namespace AnglicanGeek.Mvc
             IList<Func<object>> creators;
             bool typeIsRegistered;
 
-            typeIsRegistered = registeredTypeCreators.TryGetValue(serviceType, out creators);
+            var key = new Tuple<Type, string>(serviceType, null);
+
+            typeIsRegistered = registeredTypeCreators.TryGetValue(key, out creators);
 
             if (!typeIsRegistered)
                 if (!serviceType.IsAbstract && !serviceType.IsInterface)
@@ -50,15 +52,60 @@ namespace AnglicanGeek.Mvc
             return creators[0]();
         }
 
+        public object GetService(
+            Type serviceType,
+            string name)
+        {
+            IList<Func<object>> namedCreators;
+            IList<Func<object>> typedCreators;
+            bool nameIsRegistered;
+            bool typeIsRegistered;
+
+            var namedKey = new Tuple<Type, string>(serviceType, name);
+            var typedKey = new Tuple<Type, string>(serviceType, null);
+
+            nameIsRegistered = registeredTypeCreators.TryGetValue(namedKey, out namedCreators);
+            typeIsRegistered = registeredTypeCreators.TryGetValue(typedKey, out typedCreators);
+
+            Func<IList<Func<object>>, object> createInstance = new Func<IList<Func<object>>, object>((creators) =>
+            {
+                if (creators.Count > 1)
+                    throw new InvalidOperationException(string.Format("Cannot create the type '{0}' because it has more than one registered creators", serviceType));
+
+                return creators[0]();
+            });
+
+            if (nameIsRegistered)
+            {
+                return createInstance(namedCreators);
+            }
+            else if (typeIsRegistered)
+            {
+                return createInstance(typedCreators);
+            }
+            else
+            {
+                if (!serviceType.IsAbstract && !serviceType.IsInterface)
+                    return CreateInstance(serviceType);
+                else
+                    return null;
+            }
+        }
+
         public T GetService<T>()
         {
             return (T)GetService(typeof(T));
         }
 
+        public T GetService<T>(string name)
+        {
+            return (T)GetService(typeof(T), name);
+        }
+
         public IEnumerable<object> GetServices(Type serviceType)
         {
             foreach (var key in registeredTypeCreators.Keys)
-                if (key.IsAssignableFrom(serviceType))
+                if (key.Item1.IsAssignableFrom(serviceType))
                     foreach (var creator in registeredTypeCreators[key])
                         yield return creator();
         }
@@ -66,7 +113,7 @@ namespace AnglicanGeek.Mvc
         public IEnumerable<T> GetServices<T>()
         {
             foreach (var key in registeredTypeCreators.Keys)
-                if (key.IsAssignableFrom(typeof(T)))
+                if (key.Item1.IsAssignableFrom(typeof(T)))
                     foreach(var creator in registeredTypeCreators[key])
                         yield return (T)creator();
         }
@@ -74,11 +121,13 @@ namespace AnglicanGeek.Mvc
         public void RegisterBinding(
             Type from, 
             Type to)
-        {   
-            if (!registeredTypeCreators.ContainsKey(from))
-                    registeredTypeCreators.Add(from, new List<Func<object>> { () => CreateInstance(to) });
+        {
+            var key = new Tuple<Type, string>(from, null);
+            
+            if (!registeredTypeCreators.ContainsKey(key))
+                    registeredTypeCreators.Add(key, new List<Func<object>> { () => CreateInstance(to) });
             else
-                registeredTypeCreators[from].Add(() => CreateInstance(to));
+                registeredTypeCreators[key].Add(() => CreateInstance(to));
         }
 
         public void RegisterBinding<TFrom, TTo>()
@@ -106,15 +155,37 @@ namespace AnglicanGeek.Mvc
             Type type, 
             Func<object> creator)
         {
-            if (!registeredTypeCreators.ContainsKey(type))
-                registeredTypeCreators.Add(type, new List<Func<object>> { creator });
+            var key = new Tuple<Type, string>(type, null);
+            
+            if (!registeredTypeCreators.ContainsKey(key))
+                registeredTypeCreators.Add(key, new List<Func<object>> { creator });
             else
-                registeredTypeCreators[type].Add(creator);
+                registeredTypeCreators[key].Add(creator);
+        }
+
+        public void RegisterCreator(
+            Type type,
+            string name,
+            Func<object> creator)
+        {
+            var key = new Tuple<Type, string>(type, name);
+
+            if (!registeredTypeCreators.ContainsKey(key))
+                registeredTypeCreators.Add(key, new List<Func<object>> { creator });
+            else
+                registeredTypeCreators[key].Add(creator);
         }
 
         public void RegisterCreator<T>(Func<object> creator)
         {
             RegisterCreator(typeof(T), creator);
+        }
+
+        public void RegisterCreator<T>(
+            string name,
+            Func<object> creator)
+        {
+            RegisterCreator(typeof(T), name, creator);
         }
     }
 }

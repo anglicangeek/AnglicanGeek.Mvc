@@ -17,7 +17,16 @@ namespace AnglicanGeek.Mvc
         void RegisterCreator(
             Type type, 
             Func<object> creator);
-        
+
+        void RegisterCreator(
+            Type type,
+            string name,
+            Func<object> creator);
+
         void RegisterCreator<T>(Func<object> creator);
+
+        void RegisterCreator<T>(
+            string name,
+            Func<object> creator);
     }
 }

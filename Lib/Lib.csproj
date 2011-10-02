@@ -48,6 +48,7 @@
     <Compile Include="ActionInjectionControllerActivator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="INamedDependencyResolver.cs" />
     <Compile Include="InjectingActionInvoker.cs">
       <SubType>Code</SubType>
     </Compile>
