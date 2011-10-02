@@ -92,3 +92,6 @@ I've never liked being forced to put my view templates into a folder that matche
 * ~/views/_layout.cshtml
 * ~/views/view.cshtml
 * ~/views/_partial.cshtml
+
+Method Injection for Controller Actions
+---------------------------------------

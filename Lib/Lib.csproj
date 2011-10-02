@@ -45,6 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionInjectionControllerActivator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InjectingActionInvoker.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SimpleDependencyContainer.cs" />
     <Compile Include="IRouteRegistrar.cs" />
     <Compile Include="IDependencyRegistrar.cs" />

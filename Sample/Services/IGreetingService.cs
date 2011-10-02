@@ -4,6 +4,6 @@ namespace Sample
 {
     public interface IGreetingService
     {
-        string GetGreeting();
+        string GetGreeting(string name);
     }
 }

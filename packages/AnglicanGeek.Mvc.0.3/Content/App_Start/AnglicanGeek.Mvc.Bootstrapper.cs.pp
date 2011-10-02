@@ -13,6 +13,7 @@ namespace $rootnamespace$.App_Start.AnglicanGeek.Mvc
             
             Configurator.UseRouteRegistrars();
             Configurator.UseSimpleDependencyContainer();
+			Configurator.UseActionInjection();
             Configurator.UseScopedFilters();
             Configurator.FixUpViewEngines();
         }

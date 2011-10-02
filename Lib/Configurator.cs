@@ -28,6 +28,18 @@ namespace AnglicanGeek.Mvc
             }
         }
 
+        public static void UseActionInjection()
+        {
+            if (MvcDependencyResolver.Current == null)
+                throw new InvalidOperationException("Cannot use action injection without a registered dependency resolver.");
+
+            var dependencyResolver = MvcDependencyResolver.Current as IDependencyRegistry;
+            if (dependencyResolver == null)
+                throw new InvalidOperationException("Cannot automatically register action injection for the current dependency resolver. You can manually register the ActionInjectionControllerActivator for your dependency resolver to use action injection.");
+            else
+                dependencyResolver.RegisterCreator<IControllerActivator>(() => new ActionInjectionControllerActivator());
+        }
+
         public static void UseSimpleDependencyContainer()
         {
             var dependencyResolver = new SimpleDependencyContainer();

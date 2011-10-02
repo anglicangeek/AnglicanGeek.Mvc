@@ -4,9 +4,12 @@ namespace Sample
 {
     public class GreetingService : Sample.IGreetingService
     {
-        public string GetGreeting()
+        public string GetGreeting(string name)
         {
-            return "Hello.";
+            if (string.IsNullOrWhiteSpace(name))
+                return "Hello.";
+            else
+                return "Hello " + name + ".";
         }
     }
 }

@@ -8,16 +8,11 @@ namespace Sample.Controllers
 {
     public class HomeController : Controller
     {
-        readonly IGreetingService greetingService;
-        
-        public HomeController(IGreetingService greetingService)
+        public ActionResult Index(
+            IGreetingService greetingService,
+            string name)
         {
-            this.greetingService = greetingService;
-        }
-        
-        public ActionResult Index()
-        {
-            ViewBag.Greeting = greetingService.GetGreeting();
+            ViewBag.Greeting = greetingService.GetGreeting(name);
             
             return View();
         }
