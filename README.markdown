@@ -60,6 +60,8 @@ To use action injection, add the following line to your application's start-up c
 
     AnglicanGeek.Mvc.Configurator.UseActionInjection();
 
+Action injection relies on a dependency resolver that provides a [dependency registry](https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/Lib/IDependencyRegistry.cs). The simple dependency container included in AnglicanGeek.Mvc provides a dependency registry, and adding one to the container of your choice is likely easy to do.
+
 Interface-Driven Global Filters with Constructor Injection
 ----------------------------------------------------------
 
