@@ -7,7 +7,9 @@ namespace Sample
     {
         public void RegisterDependencies(IDependencyRegistry dependencyRegistry)
         {
-            dependencyRegistry.RegisterBinding<IGreetingService, GreetingService>();
+            dependencyRegistry.RegisterCreator<IGreetingService>(
+                "greetingService", 
+                () => new GreetingService());
         }
     }
 }

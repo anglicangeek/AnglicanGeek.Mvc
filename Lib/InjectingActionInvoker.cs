@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using MvcDependencyResolver = System.Web.Mvc.DependencyResolver;
 
 namespace AnglicanGeek.Mvc
 {
@@ -21,12 +22,26 @@ namespace AnglicanGeek.Mvc
             {
                 try
                 {
-                    parameterValue = DependencyResolver.Current.GetService(parameterDescriptor.ParameterType);
+                    parameterValue = GetParameterValueFromDependencyResolver(
+                        parameterDescriptor.ParameterType, 
+                        parameterDescriptor.ParameterName);
                 }
                 catch { }
             }
 
             return parameterValue;
+        }
+
+        private static object GetParameterValueFromDependencyResolver(
+            Type type,
+            string name)
+        {
+            var namedDependencyResolver = MvcDependencyResolver.Current.GetService<INamedDependencyResolver>();
+
+            if (namedDependencyResolver != null)
+                return namedDependencyResolver.GetService(type, name);
+            else
+                return MvcDependencyResolver.Current.GetService(type);
         }
     }
 }
