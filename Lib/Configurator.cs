@@ -6,6 +6,8 @@ using System.Web.Routing;
 using MvcDependencyResolver = System.Web.Mvc.DependencyResolver;
 using MvcRazorViewEngine = System.Web.Mvc.RazorViewEngine;
 using MvcWebFormViewEngine = System.Web.Mvc.WebFormViewEngine;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace AnglicanGeek.Mvc
 {
@@ -32,7 +34,7 @@ namespace AnglicanGeek.Mvc
         {
             if (MvcDependencyResolver.Current == null)
                 throw new InvalidOperationException("Cannot use action injection without a registered dependency resolver.");
-
+            
             var dependencyResolver = MvcDependencyResolver.Current as IDependencyRegistry;
             if (dependencyResolver == null)
                 throw new InvalidOperationException("Cannot automatically register action injection for the current dependency resolver. You can manually register the ActionInjectionControllerActivator for your dependency resolver to use action injection.");
@@ -62,9 +64,14 @@ namespace AnglicanGeek.Mvc
 
         public static void UseRouteRegistrars()
         {
+            UseRouteRegistrars(new[] { Assembly.GetCallingAssembly() });
+        }
+        
+        public static void UseRouteRegistrars(IEnumerable<Assembly> assembliesWithRouteRegistrars)
+        {
             var registrarInterface = typeof(IRouteRegistrar);
 
-            var registrars = AppDomain.CurrentDomain.GetAssemblies().ToList()
+            var registrars = assembliesWithRouteRegistrars
                 .SelectMany(assembly => assembly.GetTypes())
                 .Where(type => type != registrarInterface && registrarInterface.IsAssignableFrom(type))
                 .Select(type => Activator.CreateInstance(type) as IRouteRegistrar);
