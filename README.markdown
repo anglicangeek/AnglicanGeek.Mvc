@@ -4,7 +4,7 @@ To install via NuGet:
 
     install-package AnglicanGeek.Mvc
 
-AnglicanGeek.Mvx provides:
+AnglicanGeek.Mvc provides:
 
 A Simple Dependency Container and Interface-Driven Dependency Registration
 --------------------------------------------------------------------------
@@ -31,6 +31,8 @@ The simple container does not provide lifecycle management (ASP.NET MVC should d
 
 You may have more than one dependency registrar in your app, but the order in which they are invoked is not deterministic. You can also use IDependencyRegistrar in your libraries for automatic dependency registration when used alongside AnglicanGeek.Mvc (for an example, see AnglicanGeek.Crypto).
 
+*Configuration*
+
 To use the simple dependency container, add the following line to your application's start-up code:
 
     AnglicanGeek.Mvc.Configurator.UseSimpleDependencyContainer();
@@ -50,7 +52,9 @@ AnglicanGeek.Mvc provides method parameter injection for controller actions. If 
 
 *Named Dependencies*
 
-If the current dependency resolver provides a [named dependency resolver](https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/Lib/INamedDependencyResolver.cs), you can use named dependencies for action injection. A named dependency will only be resolved if both the parameter's type and the parameter's name have been registered in the [dependenct registry](https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/Lib/IDependencyRegistry.cs). 
+If the current dependency resolver provides a [named dependency resolver](https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/Lib/INamedDependencyResolver.cs), you can use named dependencies for action injection. A named dependency will only be resolved if both the parameter's type and the parameter's name have been registered in the [dependency registry](https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/Lib/IDependencyRegistry.cs). 
+
+*Configuration*
 
 To use action injection, add the following line to your application's start-up code:
 
@@ -93,6 +97,7 @@ AnglicanGeek.Mvc includes a filter provider that looks for filter types that imp
 
 Note that the IScopedFilter interface must be implemented on a type that *also* implements one of the four MVC filter interfaces: IActionFilter, IResultFilter, IExceptionFilter, or IAuthorizationFilter. If the IScopedFilter interface is implemented on a type without one of these, that type will be ignored.
 
+*Configuration*
 
 To use scoped filters, add the following line to your application's start-up code:
 
@@ -120,6 +125,8 @@ If, like me, you consider the presence of global.asax in an MVC app an eye-sore,
 
 By default, only route registars in the calling assembly will be used, but you can also pass a list of assemblies containing route registars to use.
 
+*Configuration*
+
 To use route registrars, add the following line to your application's start-up code:
 
     AnglicanGeek.Mvc.Configurator.UseRouteRegistrars();
@@ -132,6 +139,8 @@ I've never liked being forced to put my view templates into a folder that matche
 * ~/views/_layout.cshtml
 * ~/views/view.cshtml
 * ~/views/_partial.cshtml
+
+*Configuration*
 
 To support a flat folder for view engines, add the following line to your application's start-up code:
 
