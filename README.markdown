@@ -107,8 +107,7 @@ To use scoped filters, add the following line to your application's start-up cod
 
 Using scoped filters relies on a dependency resolver that provides a [dependency registry](https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/Lib/IDependencyRegistry.cs). The simple dependency container included in AnglicanGeek.Mvc provides a dependency registry, and adding one to the container of your choice is likely easy to do.
 
-Interface-Driven Route Registration
------------------------------------
+## Interface-Driven Route Registration ## {#action_injection}
 
 If, like me, you consider the presence of global.asax in an MVC app an eye-sore, you might like to use my [IRouteRegistrar](https://github.com/anglicangeek/AnglicanGeek.Mvc/blob/master/Lib/IRouteRegistrar.cs) interface for route registration. Here is an example:
 
