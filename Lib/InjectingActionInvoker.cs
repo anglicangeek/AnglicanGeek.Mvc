@@ -13,23 +13,19 @@ namespace AnglicanGeek.Mvc
             ControllerContext controllerContext,
             ParameterDescriptor parameterDescriptor)
         {
-            object parameterValue = null;
-
             if (!parameterDescriptor.ParameterType.IsAbstract && !parameterDescriptor.ParameterType.IsInterface)
-                parameterValue = base.GetParameterValue(controllerContext, parameterDescriptor);
+                return base.GetParameterValue(controllerContext, parameterDescriptor);
             
-            if (parameterValue == null)
+            try
             {
-                try
-                {
-                    parameterValue = GetParameterValueFromDependencyResolver(
-                        parameterDescriptor.ParameterType, 
-                        parameterDescriptor.ParameterName);
-                }
-                catch { }
+                return GetParameterValueFromDependencyResolver(
+                    parameterDescriptor.ParameterType, 
+                    parameterDescriptor.ParameterName);
             }
-
-            return parameterValue;
+            catch 
+            {
+                return null;
+            }
         }
 
         private static object GetParameterValueFromDependencyResolver(
