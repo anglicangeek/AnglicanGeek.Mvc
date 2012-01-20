@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AnglicanGeek.SimpleContainer;
 using MvcDependencyResolver = System.Web.Mvc.DependencyResolver;
 using MvcRazorViewEngine = System.Web.Mvc.RazorViewEngine;
 using MvcWebFormViewEngine = System.Web.Mvc.WebFormViewEngine;

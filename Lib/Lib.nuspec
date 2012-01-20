@@ -18,6 +18,7 @@
       * Renamed the Bootstrapper in App_Start
     </releaseNotes>
     <dependencies>
+      <dependency id="AnglicanGeek.SimpleContainer" />
       <dependency id="WebActivator" />
     </dependencies>
   </metadata>

@@ -1,5 +1,4 @@
-﻿
-using AnglicanGeek.Mvc;
+﻿using AnglicanGeek.SimpleContainer;
 
 namespace Sample
 {

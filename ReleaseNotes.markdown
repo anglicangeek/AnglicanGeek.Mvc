@@ -1,3 +1,7 @@
+0.3.1
+---
+* Extracted the dependency container and object creation bits into their own package.
+
 0.3
 ---
 * Added new feature: method parameter injection for controller actions
