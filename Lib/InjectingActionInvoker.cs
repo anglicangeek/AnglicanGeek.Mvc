@@ -12,6 +12,7 @@ namespace AnglicanGeek.Mvc
             ParameterDescriptor parameterDescriptor)
         {
             object parameter = null;
+
             try
             {
                 parameter = GetParameterValueFromDependencyResolver(
@@ -33,7 +34,19 @@ namespace AnglicanGeek.Mvc
             Type type,
             string name)
         {
+            var dependencyRegistry = MvcDependencyResolver.Current.GetService<IDependencyRegistry>();
             var namedDependencyResolver = MvcDependencyResolver.Current.GetService<INamedDependencyResolver>();
+
+            if (dependencyRegistry == null)
+            {
+                if (type.IsAbstract || type.IsInterface)
+                    return MvcDependencyResolver.Current.GetService(type);
+                else
+                    return null;
+            }
+
+            if (!dependencyRegistry.TypeIsRegistered(type))
+                return null;
 
             if (namedDependencyResolver != null)
                 return namedDependencyResolver.GetService(type, name);
