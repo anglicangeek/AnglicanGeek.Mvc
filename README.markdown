@@ -1,3 +1,5 @@
+_**NOTICE! This repo is very outdated and is no longer maintained.**_
+
 AnglicanGeek.Mvc is a library that has the stuff I use with every ASP.NET MVC app I craft. 
 
 To install via NuGet:
